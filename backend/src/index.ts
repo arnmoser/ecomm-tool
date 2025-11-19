@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { generateEAN13, calculateEANCheckDigit } from './eanlogic';
+
 dotenv.config();
 
 const app = express();
@@ -11,3 +13,4 @@ app.get('/health', (_req, res) => {
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server listening on ${port}`));
+
