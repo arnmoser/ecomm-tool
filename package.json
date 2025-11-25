@@ -1,0 +1,42 @@
+{
+  "name": "ecomm-tool",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --config jest.config.cjs",
+    "test:backend": "jest --config backend/jest.config.cjs --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnmoser/ecomm-tool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arnmoser/ecomm-tool/issues"
+  },
+  "homepage": "https://github.com/arnmoser/ecomm-tool#readme",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/axios": "^0.9.36",
+    "@types/express": "^5.0.5",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "msw": "^2.12.2",
+    "ts-jest": "^29.4.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}

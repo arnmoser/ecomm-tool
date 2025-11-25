@@ -5,6 +5,7 @@ services:
     image: postgres:15
     environment:
       POSTGRES_USER: ecomm
+      
       POSTGRES_PASSWORD: cangeme
       POSTGRES_DB: ecomm_dev
     ports:
