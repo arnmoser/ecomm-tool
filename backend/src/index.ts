@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { generateEAN13, calculateEANCheckDigit } from './eanlogic';
+import { generateEAN13, calculateEANCheckDigit, generateRandomEAN} from './eanlogic';
 
 dotenv.config();
 
@@ -14,3 +14,12 @@ app.get('/health', (_req, res) => {
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server listening on ${port}`));
 
+app.post('/generate-ean', (req, res) => {
+  const { codeString, quantity = 1} = req.body ?? {};
+
+  const codes = [];
+  for (let i = 0; i < quantity; i++) {
+    codes.push(generateRandomEAN());
+  }
+  res.json({ codes });
+});
