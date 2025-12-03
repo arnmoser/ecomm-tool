@@ -18,7 +18,7 @@ describe('EanTool', () => {
       </QueryClientProvider>
     );
 
-    const genBtn = screen.getByRole('button', { name: /Gerar EAN aleatório/i });
+    const genBtn = screen.getByRole('button', { name: /Gerar Código EAN/i });
     await userEvent.click(genBtn);
 
     await waitFor(() => expect(screen.getByText(mockCode)).toBeInTheDocument());
@@ -33,7 +33,7 @@ describe('EanTool', () => {
       </QueryClientProvider>
     );
 
-    const genBtn = screen.getByRole('button', { name: /Gerar EAN aleatório/i });
+    const genBtn = screen.getByRole('button', { name: /Gerar Código EAN/i });
     await userEvent.click(genBtn);
 
     await waitFor(() => expect(screen.getByText(/Erro:/i)).toBeInTheDocument());

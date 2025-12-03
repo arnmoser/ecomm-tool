@@ -15,11 +15,19 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server listening on ${port}`));
 
 app.post('/generate-ean', (req, res) => {
-  const { codeString, quantity = 1} = req.body ?? {};
+  const { prefixo, quantity = 1} = req.body ?? {};
+
 
   const codes = [];
   for (let i = 0; i < quantity; i++) {
-    codes.push(generateRandomEAN());
+    if(prefixo && prefixo.length > 0) {
+      codes.push(generateEAN13(prefixo));
+      console.log("rodou1");
+    }
+    else {
+      codes.push(generateRandomEAN());
+         console.log("rodou2");
+    }
   }
   res.json({ codes });
 });

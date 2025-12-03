@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export type GenerateEanRequest = {
 
-    prefix?: string;
+    prefixo?: string;
     quantity?: number;
 };
 

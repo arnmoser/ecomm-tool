@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useGenerateEan } from '../hooks/useEan';
+import axios from 'axios';
 
 export default function EanTool() {
   const { mutateAsync, isPending, isError, error } = useGenerateEan();
   const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [prefixo, setPrefixo] = useState("");
 
   async function handleGenerate() {
     setCopied(false);
     try {
-      // se quiser passar prefix/quantity: mutateAsync({ prefix, quantity: 1 })
-      const result = await mutateAsync(undefined);
+    const result = await mutateAsync({
+      prefixo, 
+      quantity: 1
+    })
       const first = result.codes?.[0] ?? null;
       setCode(first);
     } catch (err) {
@@ -46,15 +50,19 @@ export default function EanTool() {
   return (
     <main className="max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">Gerador de EAN (GTIN-13)</h1>
-
+      <input
+        type="number"
+        value={prefixo}
+        onChange={(e) => setPrefixo(e.target.value)}
+      />
       <div className="flex gap-3">
         <button
-          aria-label="Gerar EAN aleatório"
+          aria-label="Gerar Código EAN"
           onClick={handleGenerate}
           disabled={isPending}
           className="px-4 py-2 rounded bg-sky-600 text-white disabled:opacity-60"
         >
-          {isPending ? 'Gerando...' : 'Gerar EAN aleatório'}
+          {isPending ? 'Gerando...' : 'Gerar EAN'}
         </button>
 
         <button
