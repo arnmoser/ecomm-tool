@@ -25,7 +25,13 @@ export function generateEAN13(input: string | number) {
         return s + calculateEANCheckDigit(s);
     }
     if(/^\d{1,11}$/.test(s)) {
-        const padded = s.padStart(12, '0');
+        const missing = 12 - s.length;
+
+        const randomPart = Array.from({ length: missing }, () =>
+            Math.floor(Math.random() * 10)
+        ).join('');
+
+            const padded = s + randomPart;
         return padded + calculateEANCheckDigit(padded);
     }
     throw new Error('Input must be 1..13 digits to generate and validate EAN-13')
