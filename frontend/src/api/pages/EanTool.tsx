@@ -7,20 +7,27 @@ export default function EanTool() {
   const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [prefixo, setPrefixo] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   async function handleGenerate() {
-    setCopied(false);
-    try {
+  setCopied(false);
+
+  // limpa tudo antes de gerar novamente
+  setCode(null);       
+  setHasError(false);
+
+  try {
     const result = await mutateAsync({
-      prefixo, 
+      prefixo,
       quantity: 1
-    })
-      const first = result.codes?.[0] ?? null;
-      setCode(first);
-    } catch (err) {
-      setCode(null);
-    }
+    });
+    
+    const first = result.codes?.[0] ?? null;
+    setCode(first);
+  } catch (err) {
+    setHasError(true);
   }
+}
 
   async function handleCopy() {
     if (!code) return;
@@ -76,21 +83,22 @@ export default function EanTool() {
       </div>
 
       <section aria-live="polite" className="mt-6">
-        <label className="block text-sm text-slate-600 mb-1">Código gerado</label>
+        <label className="block text-sm text-slate-600 mb-1">Código gerado:</label>
         <div
           role="status"
           aria-atomic="true"
           className="rounded border p-3 bg-gray-50 min-h-[48px] flex items-center"
         >
-          {isPending ? (
-            <span>Gerando...</span>
-          ) : code ? (
-            <code className="font-mono text-lg">{code}</code>
-          ) : isError ? (
-            <span className="text-red-600">Erro: {error?.message ?? 'Não foi possível gerar'}</span>
-          ) : (
-            <span className="text-slate-500">Nenhum código gerado ainda.</span>
-          )}
+       {isPending ? (
+        <span>Gerando...</span>
+      ) : hasError ? (
+       <span className="text-red-600">{error?.message}</span>
+        ) : code ? (
+        <code className="font-mono text-lg">{code}</code>
+        ) : (
+         <span className="text-slate-500">Nenhum código gerado ainda.</span>
+        )}
+
         </div>
       </section>
     </main>

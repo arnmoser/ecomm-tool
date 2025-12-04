@@ -15,19 +15,33 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server listening on ${port}`));
 
 app.post('/generate-ean', (req, res) => {
-  const { prefixo, quantity = 1} = req.body ?? {};
+  try {
+    const { prefixo, quantity = 1 } = req.body ?? {};
 
+    // validação de prefixo longo
+    if (prefixo && prefixo.length > 12) {
+      return res.status(400).json({
+        error: 'Erro: O prefixo deve ter no máximo 12 dígitos.'
+      });
+    }
 
-  const codes = [];
-  for (let i = 0; i < quantity; i++) {
-    if(prefixo && prefixo.length > 0) {
-      codes.push(generateEAN13(prefixo));
-      console.log("rodou1");
+    const codes = [];
+
+    for (let i = 0; i < quantity; i++) {
+      if (prefixo && prefixo.length > 0) {
+        codes.push(generateEAN13(prefixo));
+      } else {
+        codes.push(generateRandomEAN());
+      }
     }
-    else {
-      codes.push(generateRandomEAN());
-         console.log("rodou2");
-    }
+
+    return res.json({ codes });
+
+  } catch (err: any) {
+    console.error('Erro no backend:', err.message);
+
+    return res.status(500).json({
+      error: 'Erro interno ao gerar EAN.'
+    });
   }
-  res.json({ codes });
 });
