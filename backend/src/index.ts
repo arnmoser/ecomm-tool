@@ -14,9 +14,19 @@ app.get('/health', (_req, res) => {
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server listening on ${port}`));
 
+const MAX_QTY = 200;
+
 app.post('/generate-ean', (req, res) => {
   try {
     const { prefixo, quantity = 1 } = req.body ?? {};
+
+    const prefix = (prefixo ?? "").toString().trim();
+
+    if (quantity > MAX_QTY) {
+      return res.status(400).json({
+        error: `Quantidade máxima permitida é ${MAX_QTY}.`
+      });
+    }
 
     // validação de prefixo longo
     if (prefixo && prefixo.length > 12) {
