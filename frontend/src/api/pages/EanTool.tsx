@@ -8,6 +8,9 @@ export default function EanTool() {
   const [copied, setCopied] = useState(false);
   const [prefixo, setPrefixo] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [multi, setMulti] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
 
   async function handleGenerate() {
   setCopied(false);
@@ -19,11 +22,11 @@ export default function EanTool() {
   try {
     const result = await mutateAsync({
       prefixo,
-      quantity: 1
+      quantity: multi ? quantity : 1
     });
     
-    const first = result.codes?.[0] ?? null;
-    setCode(first);
+    console.log(result.codes);
+    setCode(result.codes.join("\n"));
   } catch (err) {
     setHasError(true);
   }
@@ -62,6 +65,34 @@ export default function EanTool() {
         value={prefixo}
         onChange={(e) => setPrefixo(e.target.value)}
       />
+      
+      <div className="mb-4">
+  <label className="flex items-center gap-2 cursor-pointer">
+    <input
+      type="checkbox"
+      checked={multi}
+      onChange={(e) => setMulti(e.target.checked)}
+    />
+    <span>Gerar múltiplos códigos EAN</span>
+  </label>
+
+  {multi && (
+    <div className="mt-2">
+      <label className="block text-sm text-slate-600 mb-1">
+        Quantidade:
+      </label>
+      <input
+        type="number"
+        min={1}
+        max={500}
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
+        className="border rounded p-2 w-full"
+      />
+    </div>
+  )}
+</div>
+      
       <div className="flex gap-3">
         <button
           aria-label="Gerar Código EAN"
