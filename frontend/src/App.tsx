@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import EanTool from './api/pages/EanTool';
+import EanTool from './api/pages/EanTool/EanTool';
 
 const queryClient = new QueryClient();
 
