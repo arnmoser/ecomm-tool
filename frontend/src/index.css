@@ -25,7 +25,8 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center; /* centraliza horizontal */
+  align-items: center;      /* centraliza vertical */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -66,3 +67,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.ean-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+

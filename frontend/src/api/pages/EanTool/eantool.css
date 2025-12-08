@@ -1,0 +1,25 @@
+.ean-card {
+  background: rgba(255, 255, 255, 0.06); /* leve translucidez */
+  backdrop-filter: blur(12px); /* efeito moderno tipo "glass" */
+  border-radius: 24px;
+  padding: 32px 40px;
+  max-width: 520px;
+  width: 100%;
+
+  /* sombra suave pra dar profundidade */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(255, 255, 255, 0.05) inset;
+
+  /* glow leve ao redor */
+  outline: 2px solid rgba(255, 255, 255, 0.06);
+  transition: 0.25s ease;
+}
+
+.ean-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(255, 255, 255, 0.08) inset;
+  outline-color: rgba(255, 255, 255, 0.12);
+}

@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import EanTool from '../pages/EanTool';
-import * as api from '../../api/ean';
+import EanTool from '../EanTool/EanTool'; 
+import * as api from '../../ean';
 
 const makeClient = () => new QueryClient({ defaultOptions: { queries: { retry: false } } });
 
