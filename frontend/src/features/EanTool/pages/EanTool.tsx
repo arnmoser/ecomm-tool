@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGenerateEan } from "../../hooks/useEan";
+import { useGenerateEan } from "../hooks/useEan";
 import "./eantool.css";
 
 export default function EanTool() {

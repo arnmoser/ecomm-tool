@@ -11,11 +11,11 @@ export type GenerateEanResponse = {
 };
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL ?? '/api',
+    baseURL: '/api',
     timeout: 5000,
 });
 
 export async function generateEan(payload?: GenerateEanRequest): Promise<GenerateEanResponse> {
-    const resp = await api.post<GenerateEanResponse>('/tool/ean',payload ?? {});
+    const resp = await api.post<GenerateEanResponse>('/ean/generate', payload ?? {});
     return resp.data;
 }

@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { GenerateEanRequest, GenerateEanResponse } from '../ean';
-import { api } from '../../services/api';
+import { GenerateEanRequest, GenerateEanResponse } from '../services/eanApi';
+import { api } from '@/lib/axios';
 
 export function useGenerateEan() {
   return useMutation<GenerateEanResponse, Error, GenerateEanRequest | undefined>({
     mutationFn: async (payload?: GenerateEanRequest) => {
       try {
-        const resp = await api.post('/generate-ean', payload ?? {});
+        const resp = await api.post('/ean/generate', payload ?? {});
         return resp.data;
       } catch (err: any) {
         // captura a mensagem vinda do backend
@@ -22,7 +22,3 @@ export function useGenerateEan() {
   });
 }
 
-export async function generateEan(payload?: GenerateEanRequest): Promise<GenerateEanResponse> {
-    const resp = await api.post('/generate-ean', payload ?? {});
-    return resp.data;    
-}
